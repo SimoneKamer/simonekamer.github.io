@@ -1,0 +1,42 @@
+
+body {background-color: #669999;
+}
+h1 { color: white; 
+        text-align: center;
+}
+p {color:black;
+text-align: left;
+}
+.blogposts {
+background-color: #666666
+color: black
+}
+
+/*memory */
+
+.board {
+background-color: red;
+padding: 3px;
+}
+
+.cardspace {
+  background-color: orange;
+  margin: 5px;
+  border-style: solid;
+  border-width: 2px;
+  /*padding: 50px;*/
+  width=3px;
+  height=3px;
+}
+
+.card {
+background-color: green;
+/*width: 90px;
+height: 90px;*/
+}
+
+.memorykrt {
+width: 60px;
+height: 60px;
+align: center;
+}
