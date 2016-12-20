@@ -7,16 +7,23 @@ h1 { color: white;
 p {color:black;
 text-align: left;
 }
+
+nav {
+     background-color: blue;
+     text-align: center;
+     padding: 5px;
+}
 .blogposts {
 background-color: #666666
 color: black
 }
 
+
 /*memory */
 
 .board {
 background-color: red;
-padding: 3px;
+/*padding: 3px;*/
 }
 
 .cardspace {
