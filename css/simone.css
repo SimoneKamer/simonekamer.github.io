@@ -8,11 +8,39 @@ p {color:black;
 text-align: left;
 }
 
+
 nav {
-     background-color: blue;
      text-align: center;
-     padding: 5px;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #3d5c5c;
+}
+
+li {
+    float: center;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+
+
 .blogposts {
 background-color: #666666
 color: black
