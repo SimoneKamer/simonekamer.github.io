@@ -7,6 +7,13 @@
 <body>
     <h1 id="header">Memory</h1>
 <script>
+
+function startMemory (){
+   var playerNames = ["Sjoerd", "Simone"];
+   var cardNames = ["kaart1", "kaart2", "kaart3", "kaart4"];
+   return new PlayMemory (playerNames, cardNames);
+}
+
     game = startMemory();
     console.log (game.getCardName(0));
 

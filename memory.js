@@ -1,9 +1,3 @@
-function startMemory (){
-   var playerNames = ["Sjoerd", "Simone"];
-   var cardNames = ["kaart1", "kaart2", "kaart3", "kaart4"];
-   return new PlayMemory (playerNames, cardNames);
-}
-
 function Player(playerName){
    var playerName = playerName;
    var score = 0;
