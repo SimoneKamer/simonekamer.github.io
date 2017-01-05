@@ -5,17 +5,26 @@ function Player(playerName){
 
 function Card(cardName){
     var cardName = cardName;
-    var isVisible = false;
+    var visible = false;
     this.getCardName = function (){
             return cardName;
+    }
+    this.isVisible = function () {
+         return visible;
+    }
+    this.turn = function(){
+        this.visible != this.visible;
     }
 }
 
 function Position(card){
     var card = card;
-    var isOccupied = true;
+    var occupied = true;
     this.getCard = function (){
         return card;
+    }
+    this.isOccupied = function () {
+        return occupied;
     }
 
 }
@@ -62,6 +71,7 @@ function PlayMemory (playerNames, cardNames) {
 /* selecteer beginspeler */
     var players = this.createPlayers(playerNames);
     var positions = this.createPositions(cardNames);
+    var firstCard = true;
     this.shuffle(positions);
     this.shuffle(players);
     this.getCardName = function (index){
@@ -69,12 +79,33 @@ function PlayMemory (playerNames, cardNames) {
     }
 
 /*speler kiest een kaart, klikt er op*/
-/*controleer of er op die positie een kaart ligt*/
+    this.selectPosition = function selectPosition(index){
+        console.log ("geklikt" + index);
+  /*controleer of er op die positie een kaart ligt*/
+        var occupied = positions[index].isOccupied();
+        console.log (occupied);
+        if (occupied){
+            this.processPosition(positions[index]);// TODO: ga door met spel
+        }
+        else {
+            console.log ("lege plek gekozen");
+        }
+    }
 
-/*controleer of de speler de eerste of de tweede kaart aanklikt */
-//  if keuzeNummer = 1 {
-//    /* draai kaartje om*/
-//  }
+    this.processPosition = function (selectedPosition){
+        console.log (selectedPosition.getCard().getCardName());
+        /*controleer of de speler de eerste of de tweede kaart aanklikt */
+        if (this.firstCard) {
+            selectedPosition.getCard().turn();
+            this.firstCard = false;
+        }
+
+    }
+
+
+
+
+
 //  else {
   /* controleer of het kaartje al omgedraaid is */
   /* draai het kaartje om */
@@ -90,6 +121,7 @@ function PlayMemory (playerNames, cardNames) {
 //            }
 //            else {
             /* nieuwe beurt */
+            /* firstCard = true*/
 //           }
 //        }
 //        else {
