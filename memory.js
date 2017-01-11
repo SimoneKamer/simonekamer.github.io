@@ -14,6 +14,7 @@ function Card(cardName){
     }
     this.turn = function(){
         this.visible != this.visible;
+        // todo: lijkt niet te werken!
     }
 }
 
@@ -78,12 +79,12 @@ function PlayMemory (playerNames, cardNames) {
         return positions[index].getCard().getCardName();
     }
 
-/*speler kiest een kaart, klikt er op*/
+/*speler kiest een positie, klikt er op*/
     this.selectPosition = function selectPosition(index){
         console.log ("geklikt" + index);
   /*controleer of er op die positie een kaart ligt*/
         var occupied = positions[index].isOccupied();
-        console.log (occupied);
+        console.log ("occupied", occupied);
         if (occupied){
             this.processPosition(positions[index]);// TODO: ga door met spel
         }
@@ -93,24 +94,47 @@ function PlayMemory (playerNames, cardNames) {
     }
 
     this.processPosition = function (selectedPosition){
-        console.log (selectedPosition.getCard().getCardName());
+        console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
+        console.log ("is dit de eerste kaart", firstCard);
         /*controleer of de speler de eerste of de tweede kaart aanklikt */
-        if (this.firstCard) {
+        if (firstCard) {/*dit gaat nog mis, als je this. erbij gebruikt  */
+            console.log ("this.firstCard = true");
             selectedPosition.getCard().turn();
-            this.firstCard = false;
+            var card1 = selectedPosition.getCard().getCardName();
+            console.log("keuze 1", card1);
+            firstCard = false;
+            console.log ("bij false schakelt hij naar tweede kaart:", firstCard);
         }
-
+        else {
+            console.log ("is het kaartje zichtbaar", selectedPosition.getCard().isVisible());
+            //todo: turn lijkt niet te werken.?
+            /* controleer of het kaartje al omgedraaid is */
+            if (selectedPosition.getCard().isVisible()) {
+                console.log ("kaart al gekozen");
+                }
+            else {
+                /* draai het kaartje om */
+                selectedPosition.getCard().turn();
+                var card2 = selectedPosition.getCard().getCardName();
+                console.log("keuze 2", card2);
+                /* controleer of kaartje 1 hetzelfde is als kaartje 2 */
+ //               if card1 == card2 {
+ //                   console.log ("twee gelijke kaarten");
+  //                  }
+  //              this.firstCard = true; // is dit hier nodig, nog checken. ligt er aan naar welke plek je zo terug gaat.
+                }
+            }
     }
 
 
 
 
 
-//  else {
-  /* controleer of het kaartje al omgedraaid is */
-  /* draai het kaartje om */
-        /* controleer of kaartje 1 hetzelfde is als kaartje 2 */
-//        if kaartje1=kaartje2 {
+
+
+
+
+
         /* geef huidige speler een punt */
         /* wacht 5 seconden */
         /* haal beide kaartjes weg */
