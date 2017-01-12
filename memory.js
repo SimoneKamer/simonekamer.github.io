@@ -13,8 +13,9 @@ function Card(cardName){
          return visible;
     }
     this.turn = function(){
-        this.visible != this.visible;
-        // todo: lijkt niet te werken!
+        console.log ("voor het omdraaien:", visible);
+        visible = !visible;
+        console.log ("na het omdraaien:", visible);
     }
 }
 
@@ -73,6 +74,8 @@ function PlayMemory (playerNames, cardNames) {
     var players = this.createPlayers(playerNames);
     var positions = this.createPositions(cardNames);
     var firstCard = true;
+    var firstSelectedCardName;
+    var secondSelectedCardName;
     this.shuffle(positions);
     this.shuffle(players);
     this.getCardName = function (index){
@@ -92,41 +95,58 @@ function PlayMemory (playerNames, cardNames) {
             console.log ("lege plek gekozen");
         }
     }
+    this.processFirstCard = function (card){
+        console.log (typeof card);
+        card.turn();
+        var card1 = card.getCardName();
+        console.log("keuze 1", card1);
+        firstCard = false;
+        console.log ("bij false schakelt hij naar tweede kaart:", firstCard);
+        firstSelectedCardName = card1;
+    }
+    this.processSecondCard = function (card) {
+         console.log ("is het kaartje zichtbaar", card.isVisible());
+        /* controleer of het kaartje al omgedraaid is */
+        if (card.isVisible()) {
+            console.log ("kaart al gekozen");
+        }
+        else {
+            /* draai het kaartje om */
+            card.turn();
+            var card2 = card.getCardName();
+            console.log("keuze 2", card2);
+            secondSelectedCardName = card2;
+            this.compareCards();
+        }
+    }
 
     this.processPosition = function (selectedPosition){
         console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
         console.log ("is dit de eerste kaart", firstCard);
         /*controleer of de speler de eerste of de tweede kaart aanklikt */
-        if (firstCard) {/*dit gaat nog mis, als je this. erbij gebruikt  */
-            console.log ("this.firstCard = true");
-            selectedPosition.getCard().turn();
-            var card1 = selectedPosition.getCard().getCardName();
-            console.log("keuze 1", card1);
-            firstCard = false;
-            console.log ("bij false schakelt hij naar tweede kaart:", firstCard);
+        if (firstCard) {
+           this.processFirstCard(selectedPosition.getCard());
         }
         else {
-            console.log ("is het kaartje zichtbaar", selectedPosition.getCard().isVisible());
-            //todo: turn lijkt niet te werken.?
-            /* controleer of het kaartje al omgedraaid is */
-            if (selectedPosition.getCard().isVisible()) {
-                console.log ("kaart al gekozen");
-                }
-            else {
-                /* draai het kaartje om */
-                selectedPosition.getCard().turn();
-                var card2 = selectedPosition.getCard().getCardName();
-                console.log("keuze 2", card2);
-                /* controleer of kaartje 1 hetzelfde is als kaartje 2 */
- //               if card1 == card2 {
- //                   console.log ("twee gelijke kaarten");
-  //                  }
-  //              this.firstCard = true; // is dit hier nodig, nog checken. ligt er aan naar welke plek je zo terug gaat.
-                }
-            }
+           this.processSecondCard(selectedPosition.getCard());
+        }
     }
 
+    this.compareCards = function (){
+        console.log (firstSelectedCardName, secondSelectedCardName);
+        if (firstSelectedCardName==secondSelectedCardName) {
+            console.log ("twee gelijke kaarten");
+        }
+        else {
+            console.log ("twee verschillende kaarten");
+        }
+}
 
+           /* controleer of kaartje 1 hetzelfde is als kaartje 2 */
+//               if card1 == card2 {
+//                   console.log ("twee gelijke kaarten");
+//                  }
+//              this.firstCard = true; // is dit hier nodig, nog checken. ligt er aan naar welke plek je zo terug gaat.
 
 
 
