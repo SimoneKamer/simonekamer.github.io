@@ -111,13 +111,13 @@ function PlayMemory (playerNames, cardNames) {
 /* selecteer beginspeler */
     this.shuffle(players);
 
-//    this.activePlayer = function {    }
+// todo   this.activePlayer = function {    }
 
 
-//    somePositionsOccupied = function {
+//  todo  somePositionsOccupied = function {
 
 //    }
-//while anyOccupiedPositions {
+// todo while anyOccupiedPositions {
 
 
 
@@ -197,7 +197,7 @@ function PlayMemory (playerNames, cardNames) {
             // draai kaartjes terug
             firstSelectedPosition.getCard().turn();
             secondSelectedPosition.getCard().turn();
-            // wissel beurt
+            //todo wissel beurt
 
         }
 }
