@@ -76,6 +76,15 @@ function PlayMemory (playerNames, cardNames) {
         return positions[index].getCard().getCardName();
     }
 
+    this.checkOccupationPositions = function(){
+        anyOccupiedPositions = false;
+        for (i=0;i<positions.length;i++){
+            if (positions[i].isOccupied()){
+            anyOccupiedPositions = true;
+            console.log(anyOccupiedPositions);
+            }
+        }
+    }
 
     var firstCard = true;
     var firstSelectedCardName;
@@ -83,6 +92,15 @@ function PlayMemory (playerNames, cardNames) {
     var firstSelectedPosition;
     var secondSelectedPosition;
     var activePlayer;
+    var anyOccupiedPositions;
+
+    function wait(ms){
+       var start = new Date().getTime();
+       var end = start;
+       while(end < start + ms) {
+         end = new Date().getTime();
+      }
+    }
 
 /* haal lijst van spelers op*/
     var players = this.createPlayers(playerNames);
@@ -100,15 +118,7 @@ function PlayMemory (playerNames, cardNames) {
 
 //    }
 //while anyOccupiedPositions {
-    this.checkOccupationPositions = function(){
-        anyOccupiedPositions = false;
-        for (i=0;i<positions.length;i++){
-            if (positions[i].isOccupied()){
-            anyOccupiedPositions = true;
-            console.log(anyOccupiedPositions);
-            }
-        }
-    }
+
 
 
 
@@ -175,12 +185,20 @@ function PlayMemory (playerNames, cardNames) {
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
             // wacht 5 seconden
+            wait (5000);
             this.emptyPositions ();
             this.checkOccupationPositions();
 
         }
         else {
             console.log ("twee verschillende kaarten");
+            // wacht 5 seconden
+            wait (5000);
+            // draai kaartjes terug
+            firstSelectedPosition.getCard().turn();
+            secondSelectedPosition.getCard().turn();
+            // wissel beurt
+
         }
 }
 
@@ -196,8 +214,9 @@ function PlayMemory (playerNames, cardNames) {
 
 
         /* geef huidige speler een punt */
-        /* controleer of alle kaartjes weggehaald zijn */
-//            if alle kaartjes zijn weggehaald
+        /* controleer of alle kaartjes weggehaald zijn : checkOccupationPositions*/
+//            if alle kaartjes zijn weggehaald: buiten de while loop
+
             /* benoem een winnaar */
             /* vraag of ze het nog een keer willen spelen */
 //            }
@@ -207,9 +226,7 @@ function PlayMemory (playerNames, cardNames) {
 //           }
 //        }
 //        else {
-        /* wacht 5 seconden */
-        /* draai beide kaartjes om (terug)*/
-        /* wissel speler */
+
         /* nieuwe beurt */
 //        }
 //  }
