@@ -82,6 +82,7 @@ function PlayMemory (playerNames, cardNames) {
     var secondSelectedCardName;
     var firstSelectedPosition;
     var secondSelectedPosition;
+    var activePlayer;
 
 /* haal lijst van spelers op*/
     var players = this.createPlayers(playerNames);
@@ -91,6 +92,26 @@ function PlayMemory (playerNames, cardNames) {
     this.shuffle(positions);
 /* selecteer beginspeler */
     this.shuffle(players);
+
+//    this.activePlayer = function {    }
+
+
+//    somePositionsOccupied = function {
+
+//    }
+//while anyOccupiedPositions {
+    this.checkOccupationPositions = function(){
+        anyOccupiedPositions = false;
+        for (i=0;i<positions.length;i++){
+            if (positions[i].isOccupied()){
+            anyOccupiedPositions = true;
+            console.log(anyOccupiedPositions);
+            }
+        }
+    }
+
+
+
 /*speler kiest een positie, klikt er op*/
     this.selectPosition = function selectPosition(index){
         console.log ("geklikt" + index);
@@ -153,16 +174,17 @@ function PlayMemory (playerNames, cardNames) {
         console.log (firstSelectedCardName, secondSelectedCardName);
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
+            // wacht 5 seconden
             this.emptyPositions ();
+            this.checkOccupationPositions();
+
         }
         else {
             console.log ("twee verschillende kaarten");
         }
 }
 
-           /* controleer of kaartje 1 hetzelfde is als kaartje 2 */
-//               if card1 == card2 {
-//                   console.log ("twee gelijke kaarten");
+
 //                  }
 //              this.firstCard = true; // is dit hier nodig, nog checken. ligt er aan naar welke plek je zo terug gaat.
 
@@ -174,9 +196,7 @@ function PlayMemory (playerNames, cardNames) {
 
 
         /* geef huidige speler een punt */
-        /* wacht 5 seconden */
-        /* haal beide kaartjes weg */
-            /* controleer of alle kaartjes weggehaald zijn */
+        /* controleer of alle kaartjes weggehaald zijn */
 //            if alle kaartjes zijn weggehaald
             /* benoem een winnaar */
             /* vraag of ze het nog een keer willen spelen */
