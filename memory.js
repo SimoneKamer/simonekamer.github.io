@@ -40,11 +40,10 @@ function MemoryGame(playerNames, cardNames) {
     var secondSelectedCardName;
     var firstSelectedPosition;
     var secondSelectedPosition;
-    var activePlayer;
     var anyOccupiedPositions;
     var players;
     var positions;
-
+    var indexOfActivePlayer;
     this.isPositionOccupied = function (index){
         return positions[index].isOccupied();
     };
@@ -87,6 +86,7 @@ function MemoryGame(playerNames, cardNames) {
             secondSelectedCardName = card2;
             secondSelectedPosition = position;
             compareCards();
+            firstCard = true;
         }
     };
     var compareCards = function (){
@@ -107,6 +107,7 @@ function MemoryGame(playerNames, cardNames) {
             firstSelectedPosition.getCard().turn();
             secondSelectedPosition.getCard().turn();
             //todo wissel beurt
+            switchActivePlayer();
 
         }
     }
@@ -118,7 +119,7 @@ function MemoryGame(playerNames, cardNames) {
          end = new Date().getTime();
       }
     };
-        
+
     var emptyPositions = function () {
         firstSelectedPosition.emptyPosition();
         secondSelectedPosition.emptyPosition();
@@ -134,6 +135,14 @@ function MemoryGame(playerNames, cardNames) {
         }
     };
 
+    var switchActivePlayer = function () {
+        if (indexOfActivePlayer == players.length - 1) {
+            indexOfActivePlayer = 0;
+        }
+        else {
+            indexOfActivePlayer++;
+        }
+    }
 
 
 
@@ -148,6 +157,8 @@ function MemoryGame(playerNames, cardNames) {
         shuffle(positions);
     /* selecteer beginspeler */
         shuffle(players);
+
+        indexOfActivePlayer = 0;
     };
 
     var createPositions = function (cardNames){
