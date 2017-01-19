@@ -1,6 +1,13 @@
 function Player(playerName){
-   var playerName = playerName;
-   var score = 0;
+    var playerName = playerName;
+    var score = 0;
+    this.getName = function (){
+        return playerName;
+    }
+}
+
+Player.prototype.getName = function () {
+    return this.getName();
 }
 
 function Card(cardName){
@@ -44,9 +51,16 @@ function MemoryGame(playerNames, cardNames) {
     var players;
     var positions;
     var indexOfActivePlayer;
+
+
+    this.getNameOfActivePlayer = function () {
+        return players[indexOfActivePlayer].getName();
+    }
+
     this.isPositionOccupied = function (index){
         return positions[index].isOccupied();
     };
+
     this.processPosition = function (selectedIndex){
         var selectedPosition = positions[selectedIndex];
         console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
@@ -265,3 +279,6 @@ MemoryGame.prototype.selectPosition = function selectPosition(index){
             console.log ("lege plek gekozen");
         }
     }
+MemoryGame.prototype.getNameOfActivePlayer = function getNameOfActivePlayer() {
+    return this.getNameOfActivePlayer();
+}
