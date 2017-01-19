@@ -15,3 +15,10 @@ ShuffleMachine.prototype.shuffle = function (array){
     }
     return array;
 };
+
+function BrokenShuffleMachine (){
+}
+
+BrokenShuffleMachine.prototype.shuffle = function (array){
+    return array;
+};

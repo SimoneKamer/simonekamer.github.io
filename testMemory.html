@@ -12,7 +12,8 @@
 function startGame (){
    var playerNames = ["Sjoerd", "Simone"];
    var cardNames = ["kaart1", "kaart2", "kaart3", "kaart4"];
-   var shuffleMachine = new ShuffleMachine ();
+//   var shuffleMachine = new ShuffleMachine ();
+    var shuffleMachine = new BrokenShuffleMachine ();
    return new MemoryGame (playerNames, cardNames, shuffleMachine);
 }
 
