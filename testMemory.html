@@ -8,14 +8,13 @@
     <h1 id="header">Memory</h1>
 <script>
 
-function startMemory (){
+function startGame (){
    var playerNames = ["Sjoerd", "Simone"];
    var cardNames = ["kaart1", "kaart2", "kaart3", "kaart4"];
-   return new PlayMemory (playerNames, cardNames);
+   return new MemoryGame (playerNames, cardNames);
 }
 
-    game = startMemory();
-    console.log (game.getCardName(0));
+    game = startGame();
     game.selectPosition(0);
     game.selectPosition(1);
 </script>

@@ -33,9 +33,9 @@ function Position(card){
     }
 }
 
-function PlayMemory (playerNames, cardNames) {
+function MemoryGame(playerNames, cardNames) {
 
-    this.createPositions = function (cardNames){
+    var createPositions = function (cardNames){
         console.log ("dupliceer alle kaartjes");
        var positions = [];
        for (var i = 0; i < cardNames.length; i++) {
@@ -45,7 +45,7 @@ function PlayMemory (playerNames, cardNames) {
        return positions;
    };
 
-    this.createPlayers = function (playerName){
+    var createPlayers = function (playerName){
         console.log ("haal lijst van spelers op");
         var players = [];
         for (var i = 0; i < playerName.length; i++) {
@@ -54,8 +54,8 @@ function PlayMemory (playerNames, cardNames) {
         return players;
    };
 
-    this.shuffle = function shuffle(array) {
-   console.log (array, "schudden");
+    var shuffle = function shuffle(array) {
+    console.log (array, "schudden");
       var m = array.length, t, i;
 
       // While there remain elements to shuffle…
@@ -72,11 +72,7 @@ function PlayMemory (playerNames, cardNames) {
         return array;
    }
 
-    this.getCardName = function (index){
-        return positions[index].getCard().getCardName();
-    }
-
-    this.checkOccupationPositions = function(){
+    var checkOccupationPositions = function(){
         anyOccupiedPositions = false;
         for (i=0;i<positions.length;i++){
             if (positions[i].isOccupied()){
@@ -103,13 +99,13 @@ function PlayMemory (playerNames, cardNames) {
     }
 
 /* haal lijst van spelers op*/
-    var players = this.createPlayers(playerNames);
+    var players = createPlayers(playerNames);
 /* dupliceer alle kaartjes*/
-    var positions = this.createPositions(cardNames);
+    var positions = createPositions(cardNames);
 /* schud de kaartjes*/ /* leg kaartjes op beginpositie*/
-    this.shuffle(positions);
+    shuffle(positions);
 /* selecteer beginspeler */
-    this.shuffle(players);
+    shuffle(players);
 
 // todo   this.activePlayer = function {    }
 
@@ -123,19 +119,8 @@ function PlayMemory (playerNames, cardNames) {
 
 
 /*speler kiest een positie, klikt er op*/
-    this.selectPosition = function selectPosition(index){
-        console.log ("geklikt" + index);
-  /*controleer of er op die positie een kaart ligt*/
-        var occupied = positions[index].isOccupied();
-        console.log ("occupied", occupied);
-        if (occupied){
-            this.processPosition(positions[index]);// TODO: ga door met spel
-        }
-        else {
-            console.log ("lege plek gekozen");
-        }
-    }
-    this.processFirstCard = function (position){
+
+    var processFirstCard = function (position){
         position.getCard().turn();
         console.log ("de kaart is daadwerkelijk omgedraaid", position.getCard().isVisible());
         var card1 = position.getCard().getCardName();
@@ -146,7 +131,7 @@ function PlayMemory (playerNames, cardNames) {
         firstSelectedCardName = card1;
         firstSelectedPosition = position1;
     }
-    this.processSecondCard = function (position) {
+    var processSecondCard = function (position) {
          console.log ("is het kaartje zichtbaar", position.getCard().isVisible());
         /* controleer of het kaartje al omgedraaid is */
         if (position.getCard().isVisible()) {
@@ -159,35 +144,36 @@ function PlayMemory (playerNames, cardNames) {
             console.log("keuze 2", card2);
             secondSelectedCardName = card2;
             secondSelectedPosition = position;
-            this.compareCards();
+            compareCards();
         }
     }
 
-    this.processPosition = function (selectedPosition){
+    this.processPosition = function (selectedIndex){
+        var selectedPosition = positions[selectedIndex];
         console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
         console.log ("is dit de eerste kaart", firstCard);
         /*controleer of de speler de eerste of de tweede kaart aanklikt */
         if (firstCard) {
-           this.processFirstCard(selectedPosition);
+           processFirstCard(selectedPosition);
         }
         else {
-           this.processSecondCard(selectedPosition);
+           processSecondCard(selectedPosition);
         }
     }
 
-    this.emptyPositions = function () {
+    var emptyPositions = function () {
         firstSelectedPosition.emptyPosition();
         secondSelectedPosition.emptyPosition();
     }
 
-    this.compareCards = function (){
+    var compareCards = function (){
         console.log (firstSelectedCardName, secondSelectedCardName);
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
             // wacht 5 seconden
             wait (5000);
-            this.emptyPositions ();
-            this.checkOccupationPositions();
+            emptyPositions ();
+            checkOccupationPositions();
 
         }
         else {
@@ -230,5 +216,20 @@ function PlayMemory (playerNames, cardNames) {
         /* nieuwe beurt */
 //        }
 //  }
+    this.isPositionOccupied = function (index){
+        return positions[index].isOccupied();
+    }
+
+
 }
 
+MemoryGame.prototype.selectPosition = function selectPosition(index){
+        console.log ("geklikt" + index);
+  /*controleer of er op die positie een kaart ligt*/
+        if (this.isPositionOccupied(index)){
+            this.processPosition(index);// TODO: ga door met spel
+        }
+        else {
+            console.log ("lege plek gekozen");
+        }
+    }
