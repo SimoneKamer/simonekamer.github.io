@@ -40,7 +40,7 @@ function Position(card){
     }
 }
 
-function MemoryGame(playerNames, cardNames) {
+function MemoryGame(playerNames, cardNames, shuffleMachine) {
 
     var firstCard = true;
     var firstSelectedCardName;
@@ -64,7 +64,6 @@ function MemoryGame(playerNames, cardNames) {
     this.processPosition = function (selectedIndex){
         var selectedPosition = positions[selectedIndex];
         console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
-        console.log ("is dit de eerste kaart", firstCard);
         /*controleer of de speler de eerste of de tweede kaart aanklikt */
         if (firstCard) {
            processFirstCard(selectedPosition);
@@ -166,11 +165,10 @@ function MemoryGame(playerNames, cardNames) {
         players = createPlayers(playerNames);
     /* dupliceer alle kaartjes*/
         positions = createPositions(cardNames);
-
     /* schud de kaartjes*/ /* leg kaartjes op beginpositie*/
-        shuffle(positions);
+        shuffleMachine.shuffle(positions);
     /* selecteer beginspeler */
-        shuffle(players);
+        shuffleMachine.shuffle(players);
 
         indexOfActivePlayer = 0;
     };
@@ -194,23 +192,7 @@ function MemoryGame(playerNames, cardNames) {
         return players;
    };
 
-    var shuffle = function shuffle(array) {
-    console.log (array, "schudden");
-      var m = array.length, t, i;
 
-      // While there remain elements to shuffle…
-      while (m) {
-
-        // Pick a remaining element…
-        i = Math.floor(Math.random() * m--);
-
-        // And swap it with the current element.
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
-      }
-        return array;
-   };
 
     initGame ();
 
@@ -270,7 +252,6 @@ function MemoryGame(playerNames, cardNames) {
 }
 
 MemoryGame.prototype.selectPosition = function selectPosition(index){
-        console.log ("geklikt" + index);
   /*controleer of er op die positie een kaart ligt*/
         if (this.isPositionOccupied(index)){
             this.processPosition(index);// TODO: ga door met spel
