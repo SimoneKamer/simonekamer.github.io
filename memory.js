@@ -35,6 +35,121 @@ function Position(card){
 
 function MemoryGame(playerNames, cardNames) {
 
+    var firstCard = true;
+    var firstSelectedCardName;
+    var secondSelectedCardName;
+    var firstSelectedPosition;
+    var secondSelectedPosition;
+    var activePlayer;
+    var anyOccupiedPositions;
+    var players;
+    var positions;
+
+    this.isPositionOccupied = function (index){
+        return positions[index].isOccupied();
+    };
+    this.processPosition = function (selectedIndex){
+        var selectedPosition = positions[selectedIndex];
+        console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
+        console.log ("is dit de eerste kaart", firstCard);
+        /*controleer of de speler de eerste of de tweede kaart aanklikt */
+        if (firstCard) {
+           processFirstCard(selectedPosition);
+        }
+        else {
+           processSecondCard(selectedPosition);
+        }
+    };
+
+    var processFirstCard = function (position){
+        position.getCard().turn();
+        console.log ("de kaart is daadwerkelijk omgedraaid", position.getCard().isVisible());
+        var card1 = position.getCard().getCardName();
+        var position1 = position;
+        console.log("keuze 1", card1);
+        firstCard = false;
+        console.log ("bij false schakelt hij naar tweede kaart:", firstCard);
+        firstSelectedCardName = card1;
+        firstSelectedPosition = position1;
+    };
+
+    var processSecondCard = function (position) {
+         console.log ("is het kaartje zichtbaar", position.getCard().isVisible());
+        /* controleer of het kaartje al omgedraaid is */
+        if (position.getCard().isVisible()) {
+            console.log ("kaart al gekozen");
+        }
+        else {
+            /* draai het kaartje om */
+            position.getCard().turn();
+            var card2 = position.getCard().getCardName();
+            console.log("keuze 2", card2);
+            secondSelectedCardName = card2;
+            secondSelectedPosition = position;
+            compareCards();
+        }
+    };
+    var compareCards = function (){
+        console.log (firstSelectedCardName, secondSelectedCardName);
+        if (firstSelectedCardName==secondSelectedCardName) {
+            console.log ("twee gelijke kaarten");
+            // wacht 5 seconden
+            wait (5000);
+            emptyPositions ();
+            checkOccupationPositions();
+
+        }
+        else {
+            console.log ("twee verschillende kaarten");
+            // wacht 5 seconden
+            wait (5000);
+            // draai kaartjes terug
+            firstSelectedPosition.getCard().turn();
+            secondSelectedPosition.getCard().turn();
+            //todo wissel beurt
+
+        }
+    }
+
+    var wait = function wait(ms){
+       var start = new Date().getTime();
+       var end = start;
+       while(end < start + ms) {
+         end = new Date().getTime();
+      }
+    };
+        
+    var emptyPositions = function () {
+        firstSelectedPosition.emptyPosition();
+        secondSelectedPosition.emptyPosition();
+    };
+
+    var checkOccupationPositions = function(){
+        anyOccupiedPositions = false;
+        for (i=0;i<positions.length;i++){
+            if (positions[i].isOccupied()){
+            anyOccupiedPositions = true;
+            console.log(anyOccupiedPositions);
+            }
+        }
+    };
+
+
+
+
+
+    var initGame = function () {
+    /* haal lijst van spelers op*/
+        players = createPlayers(playerNames);
+    /* dupliceer alle kaartjes*/
+        positions = createPositions(cardNames);
+
+    /* schud de kaartjes*/ /* leg kaartjes op beginpositie*/
+        shuffle(positions);
+    /* selecteer beginspeler */
+        shuffle(players);
+    };
+
     var createPositions = function (cardNames){
         console.log ("dupliceer alle kaartjes");
        var positions = [];
@@ -70,42 +185,9 @@ function MemoryGame(playerNames, cardNames) {
         array[i] = t;
       }
         return array;
-   }
+   };
 
-    var checkOccupationPositions = function(){
-        anyOccupiedPositions = false;
-        for (i=0;i<positions.length;i++){
-            if (positions[i].isOccupied()){
-            anyOccupiedPositions = true;
-            console.log(anyOccupiedPositions);
-            }
-        }
-    }
-
-    var firstCard = true;
-    var firstSelectedCardName;
-    var secondSelectedCardName;
-    var firstSelectedPosition;
-    var secondSelectedPosition;
-    var activePlayer;
-    var anyOccupiedPositions;
-
-    function wait(ms){
-       var start = new Date().getTime();
-       var end = start;
-       while(end < start + ms) {
-         end = new Date().getTime();
-      }
-    }
-
-/* haal lijst van spelers op*/
-    var players = createPlayers(playerNames);
-/* dupliceer alle kaartjes*/
-    var positions = createPositions(cardNames);
-/* schud de kaartjes*/ /* leg kaartjes op beginpositie*/
-    shuffle(positions);
-/* selecteer beginspeler */
-    shuffle(players);
+    initGame ();
 
 // todo   this.activePlayer = function {    }
 
@@ -120,73 +202,14 @@ function MemoryGame(playerNames, cardNames) {
 
 /*speler kiest een positie, klikt er op*/
 
-    var processFirstCard = function (position){
-        position.getCard().turn();
-        console.log ("de kaart is daadwerkelijk omgedraaid", position.getCard().isVisible());
-        var card1 = position.getCard().getCardName();
-        var position1 = position;
-        console.log("keuze 1", card1);
-        firstCard = false;
-        console.log ("bij false schakelt hij naar tweede kaart:", firstCard);
-        firstSelectedCardName = card1;
-        firstSelectedPosition = position1;
-    }
-    var processSecondCard = function (position) {
-         console.log ("is het kaartje zichtbaar", position.getCard().isVisible());
-        /* controleer of het kaartje al omgedraaid is */
-        if (position.getCard().isVisible()) {
-            console.log ("kaart al gekozen");
-        }
-        else {
-            /* draai het kaartje om */
-            position.getCard().turn();
-            var card2 = position.getCard().getCardName();
-            console.log("keuze 2", card2);
-            secondSelectedCardName = card2;
-            secondSelectedPosition = position;
-            compareCards();
-        }
-    }
 
-    this.processPosition = function (selectedIndex){
-        var selectedPosition = positions[selectedIndex];
-        console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
-        console.log ("is dit de eerste kaart", firstCard);
-        /*controleer of de speler de eerste of de tweede kaart aanklikt */
-        if (firstCard) {
-           processFirstCard(selectedPosition);
-        }
-        else {
-           processSecondCard(selectedPosition);
-        }
-    }
 
-    var emptyPositions = function () {
-        firstSelectedPosition.emptyPosition();
-        secondSelectedPosition.emptyPosition();
-    }
 
-    var compareCards = function (){
-        console.log (firstSelectedCardName, secondSelectedCardName);
-        if (firstSelectedCardName==secondSelectedCardName) {
-            console.log ("twee gelijke kaarten");
-            // wacht 5 seconden
-            wait (5000);
-            emptyPositions ();
-            checkOccupationPositions();
 
-        }
-        else {
-            console.log ("twee verschillende kaarten");
-            // wacht 5 seconden
-            wait (5000);
-            // draai kaartjes terug
-            firstSelectedPosition.getCard().turn();
-            secondSelectedPosition.getCard().turn();
-            //todo wissel beurt
 
-        }
-}
+
+
+
 
 
 //                  }
@@ -216,9 +239,7 @@ function MemoryGame(playerNames, cardNames) {
         /* nieuwe beurt */
 //        }
 //  }
-    this.isPositionOccupied = function (index){
-        return positions[index].isOccupied();
-    }
+
 
 
 }
