@@ -1,14 +1,26 @@
-function Player(playerName){
+function Player(playerName,score){
     var playerName = playerName;
-    var score = 0;
+    var score = score;
     this.getName = function (){
         return playerName;
+    }
+    this.getScore = function (){
+        return score;
+    }
+
+    this.addPointToScore = function (){
+        score++;
     }
 }
 
 Player.prototype.getName = function () {
     return this.getName();
-}
+};
+
+Player.prototype.getScore = function () {
+    return this.getScore();
+};
+
 
 function Card(cardName){
     var cardName = cardName;
@@ -51,8 +63,17 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
     var indexOfActivePlayer;
 
 
+
     this.getNameOfActivePlayer = function () {
         return players[indexOfActivePlayer].getName();
+    }
+
+    this.getScoreOfActivePlayer = function () {
+        return players[indexOfActivePlayer].getScore();
+    }
+
+    this.addPointToScoreOfActivePlayer = function () {
+        players[indexOfActivePlayer].addPointToScore();
     }
 
     this.isPositionOccupied = function (index){
@@ -114,6 +135,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
             firstSelectedPosition.getCard().turn();
             secondSelectedPosition.getCard().turn();
             switchActivePlayer();
+            addPointToScore();
         }
     }
 
@@ -162,12 +184,15 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
     /* selecteer beginspeler */
         shuffleMachine.shuffle(players);
         indexOfActivePlayer = 0;
+    /*zet score van alle spelers op 0 */
+
     };
 
     var createPlayers = function (playerName){
         var players = [];
+        var score = 0;
         for (var i = 0; i < playerName.length; i++) {
-              players.push(new Player(playerName[i]));
+              players.push(new Player(playerName[i],score));
         }
         return players;
    };
@@ -184,7 +209,6 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
     initGame ();
 
 
-        /* geef huidige speler een punt */
       //   if alle kaartjes zijn weggehaald: buiten de while loop
         /* benoem een winnaar */
         /* vraag of ze het nog een keer willen spelen */
@@ -203,4 +227,7 @@ MemoryGame.prototype.selectPosition = function selectPosition(index){
     }
 MemoryGame.prototype.getNameOfActivePlayer = function getNameOfActivePlayer() {
     return this.getNameOfActivePlayer();
+}
+MemoryGame.protoype.getScoreOfActivePlayer = function getScoreOfActivePlayer() {
+    return this.getScoreOfActivePlayer();
 }
