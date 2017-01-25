@@ -4,7 +4,7 @@ var showGameArea;
 var showPositionStatus;
 var showScore;
 
-    this.showPositionStatus = function(position){
+    function showPositionStatus(position){
         if ((position.isOccupied()){
             if (position.getCard().isVisible()){
             console.log ("-voorkant-" /*position.getCard().getCardName()*/);
@@ -19,7 +19,7 @@ var showScore;
 
     this.showGameArea = function (){
         for (i=0;i<positions.length;i++){
-            showPositionStatus (positions[i]);
+            return showPositionStatus(positions[i]);
         }
     }
 
@@ -29,7 +29,7 @@ var showScore;
 // callActivePlayer
 // showScore
 // showGameArea
-ShowGamePlay.prototype.showGameArea function showGameArea() {
+ShowGamePlay.prototype.showGameArea = function showGameArea() {
     return this.showGameArea();
 
     console.log ("dit is nu het speelbord: " + showGameArea() );
