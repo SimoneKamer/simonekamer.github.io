@@ -121,21 +121,20 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
         console.log (firstSelectedCardName, secondSelectedCardName);
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
-            // wacht 5 seconden
-            wait (5000);
+            // wacht 5 seconden = 5000
+            wait (10);
             emptyPositions ();
             checkOccupationPositions();
-
+            addPointToScore();
         }
         else {
             console.log ("twee verschillende kaarten");
-            // wacht 5 seconden
-            wait (5000);
+            // wacht 5 seconden = 5000
+            wait (10);
             // draai kaartjes terug
             firstSelectedPosition.getCard().turn();
             secondSelectedPosition.getCard().turn();
             switchActivePlayer();
-            addPointToScore();
         }
     }
 
