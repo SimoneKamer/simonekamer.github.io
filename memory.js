@@ -147,31 +147,26 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
             // wacht 5 seconden = 5000
-            wait (1000);
-            emptyPositions ();
-            checkOccupationPositions();
-            players[indexOfActivePlayer].addPointToScore();
+            window.setTimeout (function (){handleSituationWhenBothCardsAreIdentical()},1000);
         }
         else {
             console.log ("twee verschillende kaarten");
             // wacht 5 seconden = 5000
-            wait (1000);
-            // draai kaartjes terug
-            firstSelectedPosition.getCard().turn();
-            secondSelectedPosition.getCard().turn();
-            visualiser.hideCard(indexOfCard1);
-            visualiser.hideCard(indexOfCard2);
-            switchActivePlayer();
+            window.setTimeout (function (){handleSituationWhenBothCardsAreDifferent()},1000);
         }
     }
-
-    var wait = function wait(ms){
-       var start = new Date().getTime();
-       var end = start;
-       while(end < start + ms) {
-         end = new Date().getTime();
-      }
-    };
+    var handleSituationWhenBothCardsAreIdentical = function () {
+        emptyPositions ();
+        checkOccupationPositions();
+        players[indexOfActivePlayer].addPointToScore();
+    }
+    var handleSituationWhenBothCardsAreDifferent = function () {
+       firstSelectedPosition.getCard().turn();
+       secondSelectedPosition.getCard().turn();
+       visualiser.hideCard(indexOfCard1);
+       visualiser.hideCard(indexOfCard2);
+       switchActivePlayer();
+    }
 
     var emptyPositions = function () {
         firstSelectedPosition.emptyPosition();
