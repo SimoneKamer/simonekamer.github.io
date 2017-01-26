@@ -5,7 +5,7 @@
     <title>TestMemory</title>
     <script src="memory.js" language="javascript"></script>
     <script src="shufflemachine.js" language="javascript"></script>
-    <script src="visualiser.js" language="JavaScript"</script>
+    <script src="visualiser.js" language="JavaScript"></script>
 </head>
 <body>
     <h1 id="header">Memory</h1>
@@ -13,9 +13,10 @@
 
 function startGame (){
    var playerNames = ["Sjoerd", "Simone"];
-   var cardNames = ["kaart1", "kaart2", "kaart3", "kaart4"];
+   var cardNames = ["1", "2", "3", "4"];
 //   var shuffleMachine = new ShuffleMachine ();
     var shuffleMachine = new BrokenShuffleMachine ();
+    var visualiser = new Visualiser();
    return new MemoryGame (playerNames, cardNames, shuffleMachine, visualiser);
 }
 

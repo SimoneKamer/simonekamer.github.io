@@ -40,7 +40,7 @@ function Position(card){
     }
 }
 
-function MemoryGame(playerNames, cardNames, shuffleMachine) {
+function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
 
     var firstCard = true;
     var firstSelectedCardName;
@@ -66,19 +66,19 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
         console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
         /*controleer of de speler de eerste of de tweede kaart aanklikt */
         if (firstCard) {
-           processFirstCard(selectedPosition);
+           processFirstCard(selectedPosition, selectedIndex);
         }
         else {
            processSecondCard(selectedPosition);
         }
     };
 
-    var processFirstCard = function (position){
+    var processFirstCard = function (position, index){
         position.getCard().turn();
         console.log ("de kaart is daadwerkelijk omgedraaid", position.getCard().isVisible());
-        visualiser.revealcard(CardName)
         var card1 = position.getCard().getCardName();
         var position1 = position;
+        visualiser.revealCard(card1, index)
         console.log("keuze 1", card1);
         firstCard = false;
         console.log ("bij false schakelt hij naar tweede kaart:", firstCard);
