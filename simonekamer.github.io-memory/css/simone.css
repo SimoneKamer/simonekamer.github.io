@@ -1,0 +1,77 @@
+
+body {background-color: #669999;
+}
+h1 { color: white; 
+        text-align: center;
+}
+p {color:black;
+text-align: left;
+}
+
+
+nav {
+     text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #3d5c5c;
+}
+
+li {
+    float: center;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+
+
+.blogposts {
+background-color: #666666
+color: black
+}
+
+
+/*memory */
+
+.board {
+background-color: red;
+/*padding: 3px;*/
+}
+
+.cardspace {
+  background-color: orange;
+  margin: 5px;
+  border-style: solid;
+  border-width: 2px;
+  /*padding: 20px;*/
+  width: 75px;
+  height: 75px;
+}
+
+.card {
+background-color: green;
+width: 90px;
+height: 90px;
+}
+
+.memorykrt {
+width: 60px;
+height: 60px;
+align: center;
+}
