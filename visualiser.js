@@ -1,29 +1,23 @@
 function Visualiser(){
-
+    this.findPosition = function(index){
+        return document.getElementsByClassName("position")[index];
+    }
 };
 
 Visualiser.prototype.revealCard = function(cardName, index) {
-
-    console.log("revealCard " + cardName);
-
-
-    // Zoek de juiste position
-    var position = document.getElementsByClassName("position")[index];
-
-    // Wissel het plaatje van het kaartje
+    var position = this.findPosition(index);
     position.getElementsByTagName("img")[0].src = 'images/' + cardName + ".jpg";
 }
 
 Visualiser.prototype.hideCard = function(index) {
-    var position = document.getElementsByClassName("position")[index];
+    var position = this.findPosition(index);
     position.getElementsByTagName("img")[0].src = "images/achterkant.jpg";
 }
 
 Visualiser.prototype.emptyPositions = function(index1, index2){
-    var position = document.getElementsByClassName("position")[index1];
+    var position = this.findPosition(index1);
     position.getElementsByTagName("img")[0].src = "";
-    var position = document.getElementsByClassName("position")[index2];
+    var position = this.findPosition(index2);
     position.getElementsByTagName("img")[0].src = "";
 }
-// empty position
 // show score
