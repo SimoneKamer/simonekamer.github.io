@@ -19,5 +19,11 @@ Visualiser.prototype.hideCard = function(index) {
     position.getElementsByTagName("img")[0].src = "images/achterkant.jpg";
 }
 
+Visualiser.prototype.emptyPositions = function(index1, index2){
+    var position = document.getElementsByClassName("position")[index1];
+    position.getElementsByTagName("img")[0].src = "";
+    var position = document.getElementsByClassName("position")[index2];
+    position.getElementsByTagName("img")[0].src = "";
+}
 // empty position
 // show score

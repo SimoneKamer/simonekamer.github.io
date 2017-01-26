@@ -171,6 +171,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
     var emptyPositions = function () {
         firstSelectedPosition.emptyPosition();
         secondSelectedPosition.emptyPosition();
+        visualiser.emptyPositions(indexOfCard1, indexOfCard2);
     };
 
     var checkOccupationPositions = function(){
