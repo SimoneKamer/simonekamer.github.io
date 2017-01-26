@@ -4,7 +4,6 @@
     <title>TestMemory</title>
     <script src="memory.js" language="javascript"></script>
     <script src="shufflemachine.js" language="javascript"></script>
-    <script src="visualiser.js" language="JavaScript"></script>
 </head>
 <body>
     <h1 id="header">Memory</h1>
@@ -12,18 +11,16 @@
 
 function startGame (){
    var playerNames = ["Sjoerd", "Simone"];
-   var cardNames = ["1", "2", "3", "4"];
+   var cardNames = ["kaart1", "kaart2", "kaart3", "kaart4"];
 //   var shuffleMachine = new ShuffleMachine ();
     var shuffleMachine = new BrokenShuffleMachine ();
-    var visualiser = new Visualiser();
-   return new MemoryGame (playerNames, cardNames, shuffleMachine, visualiser);
+   return new MemoryGame (playerNames, cardNames, shuffleMachine);
 }
 
     game = startGame();
-    console.log(game.getNameOfActivePlayer() + " is aan de beurt en heeft " + game.getScoreOfActivePlayer() + " punten.");
+    console.log(game.getNameOfActivePlayer() + " is aan de beurt!");
     game.selectPosition(0);
     game.selectPosition(1);
-    console.log(game.getNameOfActivePlayer() + " is aan de beurt en heeft " + game.getScoreOfActivePlayer() + " punt.");
 </script>
 </body>
 </html>

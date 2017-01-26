@@ -4,26 +4,11 @@ function Player(playerName){
     this.getName = function (){
         return playerName;
     }
-    this.getScore = function (){
-        return score;
-    }
-
-    this.addPointToScore = function (){
-        score++;
-    }
 }
 
 Player.prototype.getName = function () {
     return this.getName();
-};
-
-Player.prototype.getScore = function () {
-    return this.getScore();
-};
-
-Player.prototype.addPointToScore = function () {
-    return this.addPointToScore();
-};
+}
 
 function Card(cardName){
     var cardName = cardName;
@@ -36,6 +21,7 @@ function Card(cardName){
     }
     this.turn = function(){
         visible = !visible;
+        console.log ("turn: kaartje is omgedraaid", visible);
     }
 }
 
@@ -48,14 +34,13 @@ function Position(card){
     this.isOccupied = function () {
         return occupied;
     }
-    
     this.emptyPosition = function () {
         occupied = false;
+        console.log ("positie wordt leeggehaald");
     }
-
 }
 
-function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
+function MemoryGame(playerNames, cardNames, shuffleMachine) {
 
     var firstCard = true;
     var firstSelectedCardName;
@@ -66,36 +51,10 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
     var players;
     var positions;
     var indexOfActivePlayer;
-    
-/* dupliceer alle kaartjes*/
-   this.createPositions = function (cardNames){
-       var positions = [];
-       for (var i = 0; i < cardNames.length; i++) {
-              positions.push(new Position(new Card(cardNames[i])));
-              positions.push(new Position(new Card(cardNames[i])));
-       }
-       return positions;
-   };
-/* haal lijst van spelers op*/
-   this.createPlayers = function (playerName){
-        var players = [];
-        for (var i = 0; i < playerName.length; i++) {
-              players.push(new Player(playerName[i]));
-        }
-        return players;
-   };
 
 
     this.getNameOfActivePlayer = function () {
         return players[indexOfActivePlayer].getName();
-    }
-
-    this.getScoreOfActivePlayer = function () {
-        return players[indexOfActivePlayer].getScore();
-    }
-
-    this.addPointToScoreOfActivePlayer = function () {
-        players[indexOfActivePlayer].addPointToScore();
     }
 
     this.isPositionOccupied = function (index){
@@ -104,27 +63,30 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
 
     this.processPosition = function (selectedIndex){
         var selectedPosition = positions[selectedIndex];
+        console.log ("gekozen kaart:", selectedPosition.getCard().getCardName());
         /*controleer of de speler de eerste of de tweede kaart aanklikt */
         if (firstCard) {
-           processFirstCard(selectedPosition, selectedIndex);
+           processFirstCard(selectedPosition);
         }
         else {
            processSecondCard(selectedPosition);
         }
     };
 
-    var processFirstCard = function (position, index){
+    var processFirstCard = function (position){
         position.getCard().turn();
+        console.log ("de kaart is daadwerkelijk omgedraaid", position.getCard().isVisible());
         var card1 = position.getCard().getCardName();
         var position1 = position;
-        visualiser.revealCard(card1, index)
         console.log("keuze 1", card1);
         firstCard = false;
+        console.log ("bij false schakelt hij naar tweede kaart:", firstCard);
         firstSelectedCardName = card1;
         firstSelectedPosition = position1;
     };
 
     var processSecondCard = function (position) {
+         console.log ("is het kaartje zichtbaar", position.getCard().isVisible());
         /* controleer of het kaartje al omgedraaid is */
         if (position.getCard().isVisible()) {
             console.log ("kaart al gekozen");
@@ -144,20 +106,22 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         console.log (firstSelectedCardName, secondSelectedCardName);
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
-            // wacht 5 seconden = 5000
-            wait (10);
+            // wacht 5 seconden
+            wait (5000);
             emptyPositions ();
             checkOccupationPositions();
-            players[indexOfActivePlayer].addPointToScore();
+
         }
         else {
             console.log ("twee verschillende kaarten");
-            // wacht 5 seconden = 5000
-            wait (10);
+            // wacht 5 seconden
+            wait (5000);
             // draai kaartjes terug
             firstSelectedPosition.getCard().turn();
             secondSelectedPosition.getCard().turn();
+            //todo wissel beurt
             switchActivePlayer();
+
         }
     }
 
@@ -179,7 +143,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         for (i=0;i<positions.length;i++){
             if (positions[i].isOccupied()){
             anyOccupiedPositions = true;
-            console.log("zijn er nog kaartjes over? " + anyOccupiedPositions);
+            console.log(anyOccupiedPositions);
             }
         }
     };
@@ -205,20 +169,12 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         shuffleMachine.shuffle(positions);
     /* selecteer beginspeler */
         shuffleMachine.shuffle(players);
-        indexOfActivePlayer = 0;
-    /*zet score van alle spelers op 0 */
 
+        indexOfActivePlayer = 0;
     };
 
-    var createPlayers = function (playerName){
-        var players = [];
-        for (var i = 0; i < playerName.length; i++) {
-              players.push(new Player(playerName[i]));
-        }
-        return players;
-   };
-
     var createPositions = function (cardNames){
+        console.log ("dupliceer alle kaartjes");
        var positions = [];
        for (var i = 0; i < cardNames.length; i++) {
               positions.push(new Position(new Card(cardNames[i])));
@@ -227,20 +183,78 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
        return positions;
    };
 
+    var createPlayers = function (playerName){
+        console.log ("haal lijst van spelers op");
+        var players = [];
+        for (var i = 0; i < playerName.length; i++) {
+              players.push(new Player(playerName[i]));
+        }
+        return players;
+   };
+
+
+
     initGame ();
 
+// todo   this.activePlayer = function {    }
 
-      //   if alle kaartjes zijn weggehaald: buiten de while loop
-        /* benoem een winnaar */
-        /* vraag of ze het nog een keer willen spelen */
+
+//  todo  somePositionsOccupied = function {
+
+//    }
+// todo while anyOccupiedPositions {
+
+
+
+
+/*speler kiest een positie, klikt er op*/
+
+
+
+
+
+
+
+
+
+
+
+//                  }
+//              this.firstCard = true; // is dit hier nodig, nog checken. ligt er aan naar welke plek je zo terug gaat.
+
+
+
+
+
+
+
+
+        /* geef huidige speler een punt */
+        /* controleer of alle kaartjes weggehaald zijn : checkOccupationPositions*/
+//            if alle kaartjes zijn weggehaald: buiten de while loop
+
+            /* benoem een winnaar */
+            /* vraag of ze het nog een keer willen spelen */
+//            }
+//            else {
+            /* nieuwe beurt */
+            /* firstCard = true*/
+//           }
+//        }
+//        else {
+
+        /* nieuwe beurt */
+//        }
+//  }
 
 
 
 }
 
 MemoryGame.prototype.selectPosition = function selectPosition(index){
+  /*controleer of er op die positie een kaart ligt*/
         if (this.isPositionOccupied(index)){
-            this.processPosition(index);
+            this.processPosition(index);// TODO: ga door met spel
         }
         else {
             console.log ("lege plek gekozen");
@@ -248,7 +262,4 @@ MemoryGame.prototype.selectPosition = function selectPosition(index){
     }
 MemoryGame.prototype.getNameOfActivePlayer = function getNameOfActivePlayer() {
     return this.getNameOfActivePlayer();
-}
-MemoryGame.prototype.getScoreOfActivePlayer = function getScoreOfActivePlayer() {
-    return this.getScoreOfActivePlayer();
 }
