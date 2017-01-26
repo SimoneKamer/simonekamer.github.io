@@ -13,6 +13,11 @@ Visualiser.prototype.revealCard = function(cardName, index) {
     // Wissel het plaatje van het kaartje
     position.getElementsByTagName("img")[0].src = 'images/' + cardName + ".jpg";
 }
-// hide card
+
+Visualiser.prototype.hideCard = function(index) {
+    var position = document.getElementsByClassName("position")[index];
+    position.getElementsByTagName("img")[0].src = "images/achterkant.jpg";
+}
+
 // empty position
 // show score

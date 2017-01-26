@@ -65,6 +65,8 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
     var players;
     var positions;
     var indexOfActivePlayer;
+    var indexOfCard1;
+    var indexOfCard2;
     
 /* dupliceer alle kaartjes*/
    this.createPositions = function (cardNames){
@@ -116,6 +118,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         position.getCard().turn();
         var card1 = position.getCard().getCardName();
         var position1 = position;
+        indexOfCard1 = index;
         visualiser.revealCard(card1, index);
         firstCard = false;
         firstSelectedCardName = card1;
@@ -131,6 +134,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
             /* draai het kaartje om */
             position.getCard().turn();
             var card2 = position.getCard().getCardName();
+            indexOfCard2 = index;
             visualiser.revealCard(card2, index);
             secondSelectedCardName = card2;
             secondSelectedPosition = position;
@@ -143,7 +147,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
             // wacht 5 seconden = 5000
-            wait (10);
+            wait (1000);
             emptyPositions ();
             checkOccupationPositions();
             players[indexOfActivePlayer].addPointToScore();
@@ -151,10 +155,12 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         else {
             console.log ("twee verschillende kaarten");
             // wacht 5 seconden = 5000
-            wait (10);
+            wait (1000);
             // draai kaartjes terug
             firstSelectedPosition.getCard().turn();
             secondSelectedPosition.getCard().turn();
+            visualiser.hideCard(indexOfCard1);
+            visualiser.hideCard(indexOfCard2);
             switchActivePlayer();
         }
     }
