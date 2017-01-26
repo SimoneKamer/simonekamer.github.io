@@ -76,6 +76,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
     var processFirstCard = function (position){
         position.getCard().turn();
         console.log ("de kaart is daadwerkelijk omgedraaid", position.getCard().isVisible());
+        visualiser.revealcard(CardName)
         var card1 = position.getCard().getCardName();
         var position1 = position;
         console.log("keuze 1", card1);
