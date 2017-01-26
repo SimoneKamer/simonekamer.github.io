@@ -1,6 +1,6 @@
-function Player(playerName,score){
+function Player(playerName){
     var playerName = playerName;
-    var score = score;
+    var score = 0;
     this.getName = function (){
         return playerName;
     }
@@ -21,6 +21,9 @@ Player.prototype.getScore = function () {
     return this.getScore();
 };
 
+Player.prototype.addPointToScore = function () {
+    return this.addPointToScore();
+};
 
 function Card(cardName){
     var cardName = cardName;
@@ -125,7 +128,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
             wait (10);
             emptyPositions ();
             checkOccupationPositions();
-            addPointToScore();
+            players[indexOfActivePlayer].addPointToScore();
         }
         else {
             console.log ("twee verschillende kaarten");
@@ -189,9 +192,8 @@ function MemoryGame(playerNames, cardNames, shuffleMachine) {
 
     var createPlayers = function (playerName){
         var players = [];
-        var score = 0;
         for (var i = 0; i < playerName.length; i++) {
-              players.push(new Player(playerName[i],score));
+              players.push(new Player(playerName[i]));
         }
         return players;
    };
@@ -227,6 +229,6 @@ MemoryGame.prototype.selectPosition = function selectPosition(index){
 MemoryGame.prototype.getNameOfActivePlayer = function getNameOfActivePlayer() {
     return this.getNameOfActivePlayer();
 }
-MemoryGame.protoype.getScoreOfActivePlayer = function getScoreOfActivePlayer() {
+MemoryGame.prototype.getScoreOfActivePlayer = function getScoreOfActivePlayer() {
     return this.getScoreOfActivePlayer();
 }
