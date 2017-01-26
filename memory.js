@@ -7,7 +7,6 @@ function Player(playerName){
     this.getScore = function (){
         return score;
     }
-
     this.addPointToScore = function (){
         score++;
     }
@@ -109,7 +108,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
            processFirstCard(selectedPosition, selectedIndex);
         }
         else {
-           processSecondCard(selectedPosition);
+           processSecondCard(selectedPosition, selectedIndex);
         }
     };
 
@@ -117,14 +116,13 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         position.getCard().turn();
         var card1 = position.getCard().getCardName();
         var position1 = position;
-        visualiser.revealCard(card1, index)
-        console.log("keuze 1", card1);
+        visualiser.revealCard(card1, index);
         firstCard = false;
         firstSelectedCardName = card1;
         firstSelectedPosition = position1;
     };
 
-    var processSecondCard = function (position) {
+    var processSecondCard = function (position, index){
         /* controleer of het kaartje al omgedraaid is */
         if (position.getCard().isVisible()) {
             console.log ("kaart al gekozen");
@@ -133,7 +131,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
             /* draai het kaartje om */
             position.getCard().turn();
             var card2 = position.getCard().getCardName();
-            console.log("keuze 2", card2);
+            visualiser.revealCard(card2, index);
             secondSelectedCardName = card2;
             secondSelectedPosition = position;
             compareCards();
