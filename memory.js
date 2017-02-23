@@ -67,6 +67,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
     var indexOfActivePlayer;
     var indexOfCard1;
     var indexOfCard2;
+    var imBusy;
     
 /* dupliceer alle kaartjes*/
    this.createPositions = function (cardNames){
@@ -104,8 +105,12 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
     };
 
     this.processPosition = function (selectedIndex){
+        if (imBusy){
+            return;
+        }
         var selectedPosition = positions[selectedIndex];
         /*controleer of de speler de eerste of de tweede kaart aanklikt */
+
         if (firstCard) {
            processFirstCard(selectedPosition, selectedIndex);
         }
@@ -144,6 +149,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
     };
     var compareCards = function (){
         console.log (firstSelectedCardName, secondSelectedCardName);
+        imBusy = true;
         if (firstSelectedCardName==secondSelectedCardName) {
             console.log ("twee gelijke kaarten");
             // wacht 5 seconden = 5000
@@ -159,6 +165,8 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         emptyPositions ();
         checkOccupationPositions();
         players[indexOfActivePlayer].addPointToScore();
+        visualiser.updateScoreOfActivePlayer(indexOfActivePlayer,players[indexOfActivePlayer].getScore());
+        imBusy = false;
     }
     var handleSituationWhenBothCardsAreDifferent = function () {
        firstSelectedPosition.getCard().turn();
@@ -166,6 +174,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
        visualiser.hideCard(indexOfCard1);
        visualiser.hideCard(indexOfCard2);
        switchActivePlayer();
+       imBusy = false;
     }
 
     var emptyPositions = function () {
@@ -207,6 +216,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
         shuffleMachine.shuffle(players);
         indexOfActivePlayer = 0;
     /*zet score van alle spelers op 0 */
+        visualiser.createScoreboard(players);
 
     };
 

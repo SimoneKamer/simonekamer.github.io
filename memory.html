@@ -8,19 +8,28 @@
     <script src="shufflemachine.js" language="javascript"></script>
     <script src="visualiser.js" language="JavaScript"></script>
     <script>
-    function startGame (){
+    function startGame() {
         var playerNames = ["Sjoerd", "Simone"];
-        var cardNames = ["1", "2", "3", "4"];
+        var numberOfMemoryImages = 12;
+        var cardNames = fillCardNames(numberOfMemoryImages);
+
 //   var shuffleMachine = new ShuffleMachine ();
         var shuffleMachine = new BrokenShuffleMachine ();
         var visualiser = new Visualiser();
         return new MemoryGame (playerNames, cardNames, shuffleMachine, visualiser);
     }
+    function fillCardNames(number) {
+        var cardNames = [];
+        for (var i=1; i<=number;i++){
+            cardNames.push(i);
+        }
+        return cardNames;
+    }
 
-    game = startGame();
+
     </script>
 </head>
-<body>
+<body onload="game = startGame()">
 <div class="board container-fluid">
     <div class="row" >
         <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
@@ -31,28 +40,28 @@
         <div class="position col-md-2"><img onclick="game.selectPosition(5)" src="images/achterkant.jpg" class="memorykrt"></div>
     </div>
     <div class="row" >
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(6)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(7)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(8)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(9)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(10)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(11)" src="images/achterkant.jpg" class="memorykrt"></div>
     </div>
     <div class="row" >
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(12)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(13)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(14)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(15)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(16)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(17)" src="images/achterkant.jpg" class="memorykrt"></div>
     </div>
     <div class="row" >
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
-        <div class="position col-md-2"><img onclick="game.selectPosition(0)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(18)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(19)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(20)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(21)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(22)" src="images/achterkant.jpg" class="memorykrt"></div>
+        <div class="position col-md-2"><img onclick="game.selectPosition(23)" src="images/achterkant.jpg" class="memorykrt"></div>
     </div>
 </div>
 <br> De afbeeldingen in dit spel zijn <a href="http://www.freepik.com/free-vector/collection-with-flat-summer-fruit_870523.htm">Designed by Freepik</a>
