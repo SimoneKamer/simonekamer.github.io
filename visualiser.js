@@ -39,4 +39,27 @@ Visualiser.prototype.createScoreboard = function(players){
 Visualiser.prototype.updateScoreOfActivePlayer = function (playerIndex,score) {
     document.getElementById("playerscore" + playerIndex).innerHTML = score;
     }
-// show score
+
+Visualiser.prototype.createMemoryBoard = function(positions){
+    var numberOfColumns = 6;
+    var memoryBoard = document.createElement("div");
+        memoryBoard.class = "board container-fluid";
+    for (var i=0; i<(positions.length/numberOfColumns);i++){
+        var row = document.createElement("div");
+        row.class = "row";
+        memoryBoard.appendChild(row);
+        for (var j=0; j<numberOfColumns;j++){
+            var position = document.createElement ("div");
+            position.class = "position col-md-2";
+            position.innerHTML = '<img onclick="game.selectPosition((j*(i+1)))" src="images/achterkant.jpg" class="memorykrt">';
+            row.appendChild(position);
+        }
+
+    }
+    document.getElementsByTagName('body')[0].appendChild(memoryBoard);
+}
+
+
+//    <div class="row" >
+//            <div class="position col-md-2"> </div>
+//            <div class="position col-md-2"><img onclick="game.selectPosition(1)" src="images/achterkant.jpg" class="memorykrt"></div>
