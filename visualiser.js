@@ -48,13 +48,14 @@ Visualiser.prototype.createMemoryBoard = function(positions){
         var row = document.createElement("div");
         row.class = "row";
         memoryBoard.appendChild(row);
-        for (var j=0; j<numberOfColumns;j++){
+        for (var j=0; j<(numberOfColumns);j++){
+            console.log ("hoi");
             var position = document.createElement ("div");
             position.class = "position col-md-2";
-            position.innerHTML = '<img onclick="game.selectPosition((j*(i+1)))" src="images/achterkant.jpg" class="memorykrt">';
+            position.innerHTML = "test";//'<img onclick="game.selectPosition((j*(i+1)))" src="images/achterkant.jpg" class="memorykrt">';
             row.appendChild(position);
         }
-
+    row.innerHTML = "end of row";
     }
     document.getElementsByTagName('body')[0].appendChild(memoryBoard);
 }
