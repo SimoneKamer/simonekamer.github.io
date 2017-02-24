@@ -60,6 +60,8 @@ Visualiser.prototype.createMemoryBoard = function(positions){
         }
     }
     document.getElementsByTagName('body')[0].appendChild(memoryBoard);
+
+    // todo: geeft nog steeds een foutmelding nadat het eerste kaartje is aangeklikt. als je de originele HTML in memory.html runt komt die fout niet.
 }
 
 
