@@ -17,16 +17,15 @@
         var shuffleMachine = new BrokenShuffleMachine ();
         var visualiser = new Visualiser();
         return new MemoryGame (playerNames, cardNames, shuffleMachine, visualiser);
-    }
+    };
+
     function fillCardNames(number) {
         var cardNames = [];
         for (var i=1; i<=number;i++){
             cardNames.push(i);
-        }
+        };
         return cardNames;
-    }
-
-
+    };
     </script>
 </head>
 <body onload="game = startGame()">

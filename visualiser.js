@@ -20,6 +20,7 @@ Visualiser.prototype.emptyPositions = function(index1, index2){
     var position = this.findPosition(index2);
     position.getElementsByTagName("img")[0].src = "";
 }
+
 Visualiser.prototype.createScoreboard = function(players){
     var scoreboard = document.createElement("table");
     scoreboard.class = "scoreboard";
@@ -36,12 +37,14 @@ Visualiser.prototype.createScoreboard = function(players){
     };
     body.insertBefore(scoreboard,body.firstChild);
 };
+
 Visualiser.prototype.updateScoreOfActivePlayer = function (playerIndex,score) {
     document.getElementById("playerscore" + playerIndex).innerHTML = score;
     }
 
 Visualiser.prototype.createMemoryBoard = function(positions){
     var numberOfColumns = 6;
+    var positionNumber = 0;
     var memoryBoard = document.createElement("div");
         memoryBoard.class = "board container-fluid";
     for (var i=0; i<(positions.length/numberOfColumns);i++){
@@ -51,10 +54,15 @@ Visualiser.prototype.createMemoryBoard = function(positions){
         for (var j=0; j<(numberOfColumns);j++){
             console.log ("hoi");
             var position = document.createElement ("div");
+
             position.class = "position col-md-2";
-            position.innerHTML = "test";//'<img onclick="game.selectPosition((j*(i+1)))" src="images/achterkant.jpg" class="memorykrt">';
+            position.innerHTML = '<img onclick="game.selectPosition("+positionNumber+")" src="images/achterkant.jpg" class="memorykrt">';
+            console.log (positionNumber);
+            console.log ('<img onclick="game.selectPosition('+positionNumber+')" src="images/achterkant.jpg" class="memorykrt">');
+            positionNumber ++;
             row.appendChild(position);
         }
+    console.log ("end of row");
     }
     document.getElementsByTagName('body')[0].appendChild(memoryBoard);
 }
