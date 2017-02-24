@@ -55,7 +55,6 @@ Visualiser.prototype.createMemoryBoard = function(positions){
             position.innerHTML = "test";//'<img onclick="game.selectPosition((j*(i+1)))" src="images/achterkant.jpg" class="memorykrt">';
             row.appendChild(position);
         }
-    row.innerHTML = "end of row";
     }
     document.getElementsByTagName('body')[0].appendChild(memoryBoard);
 }
