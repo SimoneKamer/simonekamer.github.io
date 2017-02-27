@@ -29,6 +29,7 @@ Visualiser.prototype.createScoreboard = function(players){
         var row = scoreboard.insertRow(-1);
         var cellForName = row.insertCell();
         cellForName.innerHTML = players[i].getName();
+        cellForName.id = "playername" + i;
         cellForName.className = "name";
         var cellForScore = row.insertCell();
         cellForScore.innerHTML = players[i].getScore();
@@ -61,8 +62,19 @@ Visualiser.prototype.createMemoryBoard = function(positions){
         }
     }
     document.getElementsByTagName('body')[0].appendChild(memoryBoard);
-
-    // todo: geeft nog steeds een foutmelding nadat het eerste kaartje is aangeklikt. als je de originele HTML in memory.html runt komt die fout niet.
 }
+
+//Visualiser.prototype.showActivePlayer = function(players,playerIndex){
+//    for(var i = 0; i<players.length;i++){
+//        if (i=playerIndex){
+//            document.getElementById("playername"+playerIndex).style.color = "red";
+//        }
+//        else {
+//            document.getElementById("playername"+i).innerHTML = "inactief"; //style.color = "black";
+//        }
+//
+//    }
+//}
+
 
 

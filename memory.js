@@ -174,6 +174,7 @@ function MemoryGame(playerNames, cardNames, shuffleMachine, visualiser) {
        visualiser.hideCard(indexOfCard1);
        visualiser.hideCard(indexOfCard2);
        switchActivePlayer();
+//       visualiser.showActivePlayer(players,indexOfActivePlayer);
        imBusy = false;
     }
 
