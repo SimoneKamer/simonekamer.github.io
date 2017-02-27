@@ -51,10 +51,11 @@ Visualiser.prototype.createMemoryBoard = function(positions){
         var row = document.createElement("div");
         row.className = "row";
         memoryBoard.appendChild(row);
+        console.log (row);
         for (var j=0; j<(numberOfColumns);j++){
             var position = document.createElement ("div");
             position.className = "position col-md-2";
-            position.innerHTML = '<img onclick="game.selectPosition("+positionNumber+")" src="images/achterkant.jpg" class="memorykrt">';
+            position.innerHTML = '<img onclick="game.selectPosition('+positionNumber+')" src="images/achterkant.jpg" class="memorykrt">';
             positionNumber ++;
             row.appendChild(position);
         }
