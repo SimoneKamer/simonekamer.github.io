@@ -37,6 +37,7 @@ Visualiser.prototype.createScoreboard = function(players){
         cellForScore.className = "score";
     };
     body.insertBefore(scoreboard,body.firstChild);
+    document.getElementById("playername0").style.color = "red";
 };
 
 Visualiser.prototype.updateScoreOfActivePlayer = function (playerIndex,score) {
@@ -64,17 +65,17 @@ Visualiser.prototype.createMemoryBoard = function(positions){
     document.getElementsByTagName('body')[0].appendChild(memoryBoard);
 }
 
-//Visualiser.prototype.showActivePlayer = function(players,playerIndex){
-//    for(var i = 0; i<players.length;i++){
-//        if (i=playerIndex){
-//            document.getElementById("playername"+playerIndex).style.color = "red";
-//        }
-//        else {
-//            document.getElementById("playername"+i).innerHTML = "inactief"; //style.color = "black";
-//        }
-//
-//    }
-//}
+Visualiser.prototype.highlightActivePlayer = function(players,playerIndex){
+    for(var i = 0; i<players.length;i++){
+        if (i==playerIndex){
+            document.getElementById("playername"+playerIndex).style.color = "red";
+        }
+        else {
+            document.getElementById("playername"+i).style.color = "black";
+        }
+
+    }
+}
 
 
 
